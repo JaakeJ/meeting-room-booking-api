@@ -88,6 +88,6 @@ välttämättä vastaa tavanomaista tekoälyavusteista ohjelmistokehitystä.
 henkilökohtaiseen käyttöön. Toivomme, ettet jaa tehtävää tai sen sisältöä muille.
 Onnea matkaan!
 
-Assistant:
-Toteutan alkuperäisen, toimivan version kokoushuoneiden varaus-API:sta JavaScriptillä ja in-memory-tallennuksella. Teen Express-pohjaisen palvelun, jossa on varauksen luonti, peruutus ja huonekohtaisten varausten listaus, sekä liiketoimintasääntöjen validointi (päällekkäisyys, menneisyys, alku ennen loppua). Dokumentoin oletukset README:hen ja jätän jatkokehityksen/korjaukset vaiheeseen 2.
+AI (Codex):
+Toteutan alkuperäisen, toimivan version kokoushuoneiden varaus-API:sta JavaScriptillä ja in-memory-tallennuksella. Teen Express-pohjaisen palvelun, jossa on varauksen luonti, peruutus ja huonekohtaisten varausten listaus, sekä liiketoimintasääntöjen validointi (päällekkäisyys, menneisyys, alku ennen loppua). Dokumentoin oletukset README:hen ja jätän jatkokehityksen/korjaukset vaiheeseen 2. (tämän jälkeen Codex teki kaiken "alkuperäinen AI-generoitu commit" kansion kylkeen)
 
