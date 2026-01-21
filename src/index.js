@@ -25,7 +25,7 @@ app.post("/bookings", (req, res) => {
       res.status(409).json({ error: err.message });
       return;
     }
-    res.status(500).json({ error: "Unexpected server error" });
+    res.status(500).json({ error: "Odottamaton palvelinvirhe" });
   }
 });
 
@@ -38,7 +38,7 @@ app.delete("/bookings/:id", (req, res) => {
       res.status(404).json({ error: err.message });
       return;
     }
-    res.status(500).json({ error: "Unexpected server error" });
+    res.status(500).json({ error: "Odottamaton palvelinvirhe" });
   }
 });
 
@@ -49,7 +49,7 @@ app.get("/rooms/:roomId/bookings", (req, res) => {
 
 app.use((err, req, res, next) => {
   if (err && err.type === "entity.parse.failed") {
-    res.status(400).json({ error: "Invalid JSON" });
+    res.status(400).json({ error: "Virheellinen JSON-syöte" });
     return;
   }
   next(err);
@@ -57,5 +57,5 @@ app.use((err, req, res, next) => {
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-  console.log(`Meeting room booking API listening on port ${port}`);
+  console.log(`Meeting room booking API käynnissä portissa port ${port}`);
 });

@@ -28,30 +28,30 @@ function createBooking(payload) {
   const endTime = payload?.endTime;
 
   if (!roomId || !startTime || !endTime) {
-    throw new ValidationError("roomId, startTime and endTime are required");
+    throw new ValidationError("Huone, aloitusaika ja lopetusaika ovat pakollisia");
   }
 
   const startDate = parseDate(startTime);
   const endDate = parseDate(endTime);
   if (!startDate || !endDate) {
-    throw new ValidationError("startTime and endTime must be valid ISO-8601 timestamps");
+    throw new ValidationError("Aloitusajan ja lopetusajan tulee olla kelvollisia ISO 8601 -aikaleimoja");
   }
 
   const startMs = startDate.getTime();
   const endMs = endDate.getTime();
   if (startMs >= endMs) {
-    throw new ValidationError("startTime must be before endTime");
+    throw new ValidationError("Aloitusajan tulee olla ennen lopetusaikaa");
   }
 
   const nowMs = Date.now();
   if (startMs < nowMs) {
-    throw new ValidationError("startTime cannot be in the past");
+    throw new ValidationError("Varaus ei voi alkaa menneisyydessä");
   }
 
   const roomBookings = bookings.filter((booking) => booking.roomId === roomId);
   const hasOverlap = roomBookings.some((booking) => overlaps(startMs, endMs, booking));
   if (hasOverlap) {
-    throw new OverlapError("Booking overlaps with an existing reservation");
+    throw new OverlapError("Varaus menee päällekkäin toisen varauksen kanssa");
   }
 
   const booking = {
@@ -89,7 +89,7 @@ function listBookingsByRoom(roomId) {
 function deleteBooking(id) {
   const index = bookings.findIndex((booking) => booking.id === id);
   if (index === -1) {
-    throw new NotFoundError("Booking not found");
+    throw new NotFoundError("Varausta ei löytynyt");
   }
   bookings.splice(index, 1);
 }
