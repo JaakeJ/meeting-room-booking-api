@@ -9,36 +9,23 @@ const {
 } = require("./storage");
 
 const app = express();
-
 app.use(express.json());
 
-app.post("/bookings", (req, res) => {
+app.post("/bookings", (req, res, next) => {
   try {
     const booking = createBooking(req.body);
     res.status(201).json(booking);
   } catch (err) {
-    if (err instanceof ValidationError) {
-      res.status(400).json({ error: err.message });
-      return;
-    }
-    if (err instanceof OverlapError) {
-      res.status(409).json({ error: err.message });
-      return;
-    }
-    res.status(500).json({ error: "Odottamaton palvelinvirhe" });
+    next(err);
   }
 });
 
-app.delete("/bookings/:id", (req, res) => {
+app.delete("/bookings/:id", (req, res, next) => {
   try {
     deleteBooking(req.params.id);
     res.status(204).send();
   } catch (err) {
-    if (err instanceof NotFoundError) {
-      res.status(404).json({ error: err.message });
-      return;
-    }
-    res.status(500).json({ error: "Odottamaton palvelinvirhe" });
+    next(err);
   }
 });
 
@@ -49,13 +36,24 @@ app.get("/rooms/:roomId/bookings", (req, res) => {
 
 app.use((err, req, res, next) => {
   if (err && err.type === "entity.parse.failed") {
-    res.status(400).json({ error: "Virheellinen JSON-syöte" });
-    return;
+    return res.status(400).json({ error: "Virheellinen JSON-syöte" });
   }
-  next(err);
+
+  if (err instanceof ValidationError) {
+    return res.status(400).json({ error: err.message });
+  }
+  if (err instanceof OverlapError) {
+    return res.status(409).json({ error: err.message });
+  }
+  if (err instanceof NotFoundError) {
+    return res.status(404).json({ error: err.message });
+  }
+
+  console.error(err);
+  return res.status(500).json({ error: "Odottamaton palvelinvirhe" });
 });
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-  console.log(`Meeting room booking API käynnissä portissa port ${port}`);
+  console.log(`Meeting room booking API käynnissä portissa ${port}`);
 });
