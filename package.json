@@ -1,0 +1,12 @@
+﻿{
+  "name": "meeting-room-booking-api",
+  "version": "1.0.0",
+  "description": "Simple meeting room booking API",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
