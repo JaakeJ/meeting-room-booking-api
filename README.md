@@ -14,6 +14,7 @@ Yksinkertainen muistissa toimiva varaus-API, toteutettu Node.js:llä ja Expressi
 
 ## Oletukset
 
+- Käyttäjä voi varata kuinka pitkän varauksen haluaakaan, oli se 1min tai 13h.
 - Aikaleimat annetaan ISO-8601-merkkijonoina ja palautetaan UTC ISO -muodossa.
 - Varaukset menevät päällekkäin kun aikavälit leikkaavat (`start < existingEnd && end > existingStart`).
 
