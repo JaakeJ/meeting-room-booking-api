@@ -44,8 +44,14 @@ function createBooking(payload) {
   }
 
   const nowMs = Date.now();
-  if (startMs < nowMs) {
+  const toleranceMs = 1000;
+
+  if (startMs < nowMs - toleranceMs) {
     throw new ValidationError("Varaus ei voi alkaa menneisyydessä");
+  }
+
+  if (endMs < nowMs - toleranceMs) {
+    throw new ValidationError("Varaus ei voi päättyä menneisyydessä");
   }
 
   const roomBookings = bookings.filter((booking) => booking.roomId === roomId);

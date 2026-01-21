@@ -14,7 +14,6 @@ Yksinkertainen muistissa toimiva varaus-API, toteutettu Node.js:llä ja Expressi
 
 ## Oletukset
 
-- Vain `startTime` tarkistetaan menneisyyteen; `endTime` voi olla menneisyydessä vain jos `startTime` on menneisyydessä.
 - Aikaleimat annetaan ISO-8601-merkkijonoina ja palautetaan UTC ISO -muodossa.
 - Varaukset menevät päällekkäin kun aikavälit leikkaavat (`start < existingEnd && end > existingStart`).
 
